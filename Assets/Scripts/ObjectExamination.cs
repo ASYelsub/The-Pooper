@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ObjectExamination : MonoBehaviour
 {
+    public static ObjectExamination me;
     public float distToInteractWithObj = 100f; // ray length
     public float distToTalk = 100f;
+    public bool talking = false;
     public GameObject objBeingExamined;
     public Vector3 objOriginalPos;
     public Quaternion objOriginalRot;
@@ -17,7 +19,7 @@ public class ObjectExamination : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        me = this;
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class ObjectExamination : MonoBehaviour
         RaycastHit rayHit = new RaycastHit();
         Debug.DrawRay(mouseRay.origin,mouseRay.direction*distToInteractWithObj, Color.magenta);
         if (Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj)){
-            if(rayHit.transform.tag == "Interactable" && Input.GetMouseButtonDown(0)){ // when clicking on an interactable
+            if(rayHit.transform.tag == "Interactable" && Input.GetMouseButtonDown(0) && !rayHit.transform.GetComponent<InteractableScript>().beingExamined){ // when clicking on an interactable
                 objBeingExamined = rayHit.transform.gameObject;
                 objOriginalPos = rayHit.transform.position;
                 objOriginalRot = rayHit.transform.rotation;
@@ -50,8 +52,18 @@ public class ObjectExamination : MonoBehaviour
         Ray talkRay = new Ray(transform.position,transform.forward);
         RaycastHit characterHit = new RaycastHit();
         Debug.DrawRay(talkRay.origin, talkRay.direction*distToTalk, Color.cyan);
-        if (Physics.Raycast(talkRay,out characterHit, distToTalk)){
-            print("you can talk now");
+        if (Physics.Raycast(talkRay,out characterHit, distToTalk)){ // if player in front of the character
+            if (!talking){
+                TextManager.me.ChangeText(TextManager.me.conversationText); // show prompt if not talking
+            }
+            if (Input.GetKeyDown(KeyCode.E)){ // if player press E
+                talking = true;
+                TextManager.me.conversation = true;
+                TextManager.me.characterURTalkingTo = characterHit.transform.gameObject;
+            }
+        }
+        else{
+            TextManager.me.ChangeText(TextManager.me.defaultText);
         }
     }
 }
