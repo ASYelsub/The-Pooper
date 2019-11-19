@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ObjectExamination : MonoBehaviour
 {
-    public float distToInteract = 100f; // ray length
+    public float distToInteractWithObj = 100f; // ray length
+    public float distToTalk = 100f;
     public GameObject objBeingExamined;
     public Vector3 objOriginalPos;
     public Quaternion objOriginalRot;
@@ -22,24 +23,35 @@ public class ObjectExamination : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ray cast
+        // ray cast for obj examination
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit rayHit = new RaycastHit();
-        Debug.DrawRay(mouseRay.origin,mouseRay.direction*distToInteract, Color.magenta);
-        if (Physics.Raycast(mouseRay, out rayHit, distToInteract)){
+        Debug.DrawRay(mouseRay.origin,mouseRay.direction*distToInteractWithObj, Color.magenta);
+        if (Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj)){
             if(rayHit.transform.tag == "Interactable" && Input.GetMouseButtonDown(0)){ // when clicking on an interactable
                 objBeingExamined = rayHit.transform.gameObject;
                 objOriginalPos = rayHit.transform.position;
                 objOriginalRot = rayHit.transform.rotation;
                 rayHit.transform.GetComponent<InteractableScript>().beingExamined = true;
+
+                TextManager.me.ChangeText(rayHit.transform.GetComponent<InteractableScript>().objText);
             }
         }
 
-        // put back object
-        else if (Input.GetMouseButtonDown(0)){
+        // put back object and default the text when clicking outside the object being examined
+        else if (Input.GetMouseButtonDown(0) && objBeingExamined != null){
                 objBeingExamined.GetComponent<InteractableScript>().beingExamined = false;
                 objBeingExamined.GetComponent<InteractableScript>().destination = objOriginalPos;
                 objBeingExamined.GetComponent<InteractableScript>().rDestination = objOriginalRot;
-            }
+                TextManager.me.ChangeText(TextManager.me.defaultText);
+        }
+
+        // ray cast for talking
+        Ray talkRay = new Ray(transform.position,transform.forward);
+        RaycastHit characterHit = new RaycastHit();
+        Debug.DrawRay(talkRay.origin, talkRay.direction*distToTalk, Color.cyan);
+        if (Physics.Raycast(talkRay,out characterHit, distToTalk)){
+            print("you can talk now");
+        }
     }
 }

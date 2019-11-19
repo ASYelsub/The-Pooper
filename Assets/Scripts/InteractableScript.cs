@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class InteractableScript : MonoBehaviour
 {
+    [Header("FOR OBJECT EXAMINATION")]
     public Vector3 destination; // position to move
     public Quaternion rDestination; // rotation to rotate
     public Transform examinationPos;
     public bool beingExamined = false;
     public float objectSpd;
     public ObjectExamination objManager;
-
     public float hRotSpd;
     public float vRotSpd;
     public float hAngle;
     public float vAngle;
+
+    [Header("FOR TEXT")]
+    public string objText;
     // Start is called before the first frame update
     void Start()
     {
