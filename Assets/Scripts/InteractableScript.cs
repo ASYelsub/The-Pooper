@@ -10,11 +10,10 @@ public class InteractableScript : MonoBehaviour
     public Transform examinationPos;
     public bool beingExamined = false;
     public float objectSpd;
-    public ObjectExamination objManager;
     public float hRotSpd;
     public float vRotSpd;
-    public float hAngle;
-    public float vAngle;
+    private float hAngle;
+    private float vAngle;
 
     [Header("FOR TEXT")]
     public string objText;

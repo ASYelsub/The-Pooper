@@ -53,16 +53,18 @@ public class ObjectExamination : MonoBehaviour
         RaycastHit characterHit = new RaycastHit();
         Debug.DrawRay(talkRay.origin, talkRay.direction*distToTalk, Color.cyan);
         if (Physics.Raycast(talkRay,out characterHit, distToTalk)){ // if player in front of the character
-            if (!talking){
+            if (!talking && characterHit.transform.tag == "Character"){
                 TextManager.me.ChangeText(TextManager.me.conversationText); // show prompt if not talking
             }
-            if (Input.GetKeyDown(KeyCode.E)){ // if player press E
+            if (Input.GetKeyDown(KeyCode.E) && characterHit.transform.tag == "Character"){ // if player press E
                 talking = true;
                 TextManager.me.conversation = true;
                 TextManager.me.characterURTalkingTo = characterHit.transform.gameObject;
             }
         }
-        else{
+        else if (!Physics.Raycast(talkRay,out characterHit, distToTalk) && 
+                !Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj) &&
+                objBeingExamined == null){
             TextManager.me.ChangeText(TextManager.me.defaultText);
         }
     }
