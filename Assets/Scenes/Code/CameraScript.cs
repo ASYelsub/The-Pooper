@@ -38,9 +38,9 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
 
-        //xrot += -Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
+        xrot += -Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
         yrot += Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
-
+        xrot = Mathf.Clamp(xrot, -90, 90);
         cam.rotation = Quaternion.Euler(xrot, yrot, 0);
 
         Shooting();
