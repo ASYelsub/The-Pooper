@@ -31,7 +31,7 @@ public class NPCMover : MonoBehaviour
 
         if (Mathf.Round(transform.position.x) == Mathf.Round(TargetPos.x) && Mathf.Round(transform.position.z) == Mathf.Round(TargetPos.z))
         {
-            RandomSec = Random.Range(2,6);
+            RandomSec = 2;
             reachedPoint = true;
             TargetPos = NPCpoints[Random.Range(0, 3)].position;
         }
