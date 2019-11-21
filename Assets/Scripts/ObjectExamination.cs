@@ -15,6 +15,7 @@ public class ObjectExamination : MonoBehaviour
     public float vRotSpd;
     public float hAngle;
     public float vAngle;
+    public GameObject player;
     
     // Start is called before the first frame update
     void Start()
@@ -37,15 +38,31 @@ public class ObjectExamination : MonoBehaviour
                 rayHit.transform.GetComponent<InteractableScript>().beingExamined = true;
 
                 TextManager.me.ChangeText(rayHit.transform.GetComponent<InteractableScript>().objText);
+
+                player.GetComponent<PlayerScript>().enabled = false;
+                player.GetComponent<CharacterController>().enabled = false;
+                this.gameObject.GetComponent<CameraScript>().enabled = false;
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = false;
+                CursorCtrlScript.me.canMove = true;
             }
         }
 
         // put back object and default the text when clicking outside the object being examined
         else if (Input.GetMouseButtonDown(0) && objBeingExamined != null){
-                objBeingExamined.GetComponent<InteractableScript>().beingExamined = false;
-                objBeingExamined.GetComponent<InteractableScript>().destination = objOriginalPos;
-                objBeingExamined.GetComponent<InteractableScript>().rDestination = objOriginalRot;
-                TextManager.me.ChangeText(TextManager.me.defaultText);
+            objBeingExamined.GetComponent<InteractableScript>().beingExamined = false;
+            objBeingExamined.GetComponent<InteractableScript>().destination = objOriginalPos;
+            objBeingExamined.GetComponent<InteractableScript>().rDestination = objOriginalRot;
+            TextManager.me.ChangeText(TextManager.me.defaultText);
+
+            player.GetComponent<PlayerScript>().enabled = true;
+            player.GetComponent<CharacterController>().enabled = true;
+            this.gameObject.GetComponent<CameraScript>().enabled = true;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            CursorCtrlScript.me.canMove = false;
         }
 
         // ray cast for talking

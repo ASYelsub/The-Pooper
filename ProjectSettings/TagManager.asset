@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Interactable
   - Character
+  - door
+  - Cursor
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Cursor
   - 
   - 
   - 
