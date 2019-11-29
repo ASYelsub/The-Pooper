@@ -9,6 +9,8 @@ public class CursorCtrlScript : MonoBehaviour
     public Camera cam;
     public Vector3 center;
     public Vector3 cursorPos;
+    public Vector3 startMousePos;
+    public Vector3 startPos;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +23,15 @@ public class CursorCtrlScript : MonoBehaviour
     {
         if (canMove)
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 2.254f;
-            cursorPos = cam.ScreenToWorldPoint(mousePos);
-            transform.localPosition = new Vector3(cursorPos.x,cursorPos.y,2);
+            //Vector3 mousePos = Input.mousePosition;
+            //mousePos.z = 2f;
+            //cursorPos = cam.ScreenToWorldPoint(mousePos);
+            //transform.localPosition = new Vector3(cursorPos.x,cursorPos.y,2);
+            
+            Vector3 currentPos = Input.mousePosition;
+            Vector3 diff = currentPos - startMousePos;
+            Vector3 pos = startPos + diff;
+            transform.position = pos;
             
         }
         else

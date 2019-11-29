@@ -43,6 +43,8 @@ public class ObjectExamination : MonoBehaviour
                 player.GetComponent<CharacterController>().enabled = false;
                 this.gameObject.GetComponent<CameraScript>().enabled = false;
 
+                CursorCtrlScript.me.startMousePos = Input.mousePosition; // record start mouse position
+                CursorCtrlScript.me.startPos = CursorCtrlScript.me.transform.position; // record start cursor position
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = false;
                 CursorCtrlScript.me.canMove = true;
@@ -62,7 +64,7 @@ public class ObjectExamination : MonoBehaviour
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            CursorCtrlScript.me.canMove = false;
+            //CursorCtrlScript.me.canMove = false;
         }
 
         // ray cast for talking
