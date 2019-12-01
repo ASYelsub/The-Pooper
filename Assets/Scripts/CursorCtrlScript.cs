@@ -23,11 +23,6 @@ public class CursorCtrlScript : MonoBehaviour
     {
         if (canMove)
         {
-            //Vector3 mousePos = Input.mousePosition;
-            //mousePos.z = 2f;
-            //cursorPos = cam.ScreenToWorldPoint(mousePos);
-            //transform.localPosition = new Vector3(cursorPos.x,cursorPos.y,2);
-            
             Vector3 currentPos = Input.mousePosition;
             Vector3 diff = currentPos - startMousePos;
             Vector3 pos = startPos + diff;

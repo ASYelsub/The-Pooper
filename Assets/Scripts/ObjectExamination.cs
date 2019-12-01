@@ -64,7 +64,7 @@ public class ObjectExamination : MonoBehaviour
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            //CursorCtrlScript.me.canMove = false;
+            CursorCtrlScript.me.canMove = false;
         }
 
         // ray cast for talking
