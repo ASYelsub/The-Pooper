@@ -31,7 +31,30 @@ public class ObjectExamination : MonoBehaviour
         RaycastHit rayHit = new RaycastHit();
         Debug.DrawRay(mouseRay.origin,mouseRay.direction*distToInteractWithObj, Color.magenta);
         if (Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj)){
-            if(rayHit.transform.tag == "Interactable" && Input.GetMouseButtonDown(0) && !rayHit.transform.GetComponent<InteractableScript>().beingExamined){ // when clicking on an interactable
+            print(rayHit.transform.tag);
+            // when mouse on an interactable
+            if (rayHit.transform.tag == "Interactable" && 
+                !rayHit.transform.GetComponent<InteractableScript>().beingExamined && // if the object clicked is not being exmained
+                !EmailManagerScript.me.checkingEmail) // if not checking email
+            {
+                CursorCtrlScript.me.cursorState = 3;
+            }
+            else if (rayHit.transform.tag == "laptop" && // when mouse on laptop
+                !EmailManagerScript.me.checkingEmail) // if not checking email
+            {
+                CursorCtrlScript.me.cursorState = 1;
+            }
+            else
+            {
+                CursorCtrlScript.me.cursorState = 0;
+            }
+
+                // when clicking on an interactable
+                if (rayHit.transform.tag == "Interactable" &&  // if mouse on an interactable
+                Input.GetMouseButtonDown(0) && // if clicked
+                !rayHit.transform.GetComponent<InteractableScript>().beingExamined && // if the object clicked is not being exmained
+                !EmailManagerScript.me.checkingEmail) // if not checking email
+            {
                 objBeingExamined = rayHit.transform.gameObject;
                 objOriginalPos = rayHit.transform.position;
                 objOriginalRot = rayHit.transform.rotation;
@@ -39,13 +62,43 @@ public class ObjectExamination : MonoBehaviour
 
                 TextManager.me.ChangeText(rayHit.transform.GetComponent<InteractableScript>().objText);
 
+                // freeze player action and camera
                 player.GetComponent<PlayerScript>().enabled = false;
                 player.GetComponent<CharacterController>().enabled = false;
                 this.gameObject.GetComponent<CameraScript>().enabled = false;
 
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = false;
+                CursorCtrlScript.me.startMousePos = Input.mousePosition; // record start mouse position
+                CursorCtrlScript.me.startPos = CursorCtrlScript.me.transform.position; // record start cursor position
+                Cursor.lockState = CursorLockMode.None; // stop locking the cursor
+                Cursor.visible = false; // hide the cursor
                 CursorCtrlScript.me.canMove = true;
+                
+            }
+
+            // if object is laptop
+            if (rayHit.transform.tag == "laptop" && // if mouse on laptop
+                Input.GetMouseButtonDown(0) && // if clicked
+                !rayHit.transform.GetComponent<EmailManagerScript>().checkingEmail) // if not already checking email
+            {
+                EmailManagerScript.me.checkingEmail = true;
+
+                // freeze player action and camera
+                player.GetComponent<PlayerScript>().enabled = false;
+                player.GetComponent<CharacterController>().enabled = false;
+                this.gameObject.GetComponent<CameraScript>().enabled = false;
+
+                // set up cursor
+                CursorCtrlScript.me.startMousePos = Input.mousePosition; // record start mouse position
+                CursorCtrlScript.me.startPos = CursorCtrlScript.me.transform.position; // record start cursor position
+                Cursor.lockState = CursorLockMode.None; // stop locking the cursor
+                Cursor.visible = false; // hide the cursor
+                CursorCtrlScript.me.canMove = true;
+                // display interface
+                EmailManagerScript.me.emailInterface.SetActive(true);
+                EmailManagerScript.me.ZaraButton.SetActive(true);
+                EmailManagerScript.me.closeButton.SetActive(true);
+
+                // exit interface when click on "exit"
             }
         }
 
@@ -71,9 +124,12 @@ public class ObjectExamination : MonoBehaviour
         Debug.DrawRay(talkRay.origin, talkRay.direction*distToTalk, Color.cyan);
         if (Physics.Raycast(talkRay,out characterHit, distToTalk)){ // if player in front of the character
             if (!talking && characterHit.transform.tag == "Character"){
-                TextManager.me.ChangeText(TextManager.me.conversationText); // show prompt if not talking
+                //TextManager.me.ChangeText(TextManager.me.conversationText); // show prompt if not talking
+                CursorCtrlScript.me.cursorState = 2;
             }
-            if (Input.GetKeyDown(KeyCode.E) && characterHit.transform.tag == "Character"){ // if player press E
+            if (//Input.GetKeyDown(KeyCode.E) &&
+                Input.GetMouseButtonDown(0) && // if clicked
+                characterHit.transform.tag == "Character"){
                 talking = true;
                 TextManager.me.conversation = true;
                 TextManager.me.characterURTalkingTo = characterHit.transform.gameObject;
@@ -81,8 +137,10 @@ public class ObjectExamination : MonoBehaviour
         }
         else if (!Physics.Raycast(talkRay,out characterHit, distToTalk) && 
                 !Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj) &&
-                objBeingExamined == null){
+                objBeingExamined == null)
+        {
             TextManager.me.ChangeText(TextManager.me.defaultText);
+            CursorCtrlScript.me.cursorState = 0;
         }
     }
 }

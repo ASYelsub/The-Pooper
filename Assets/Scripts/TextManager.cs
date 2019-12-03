@@ -12,7 +12,7 @@ public class TextManager : MonoBehaviour
     public bool conversation;
     public GameObject characterURTalkingTo;
     public TextMeshProUGUI UGUI;
-    private int index=0;
+    private int index=-1;
     
 
     // Start is called before the first frame update
@@ -29,7 +29,6 @@ public class TextManager : MonoBehaviour
 
         if(conversation){
             
-            textToBeDisplayed = characterURTalkingTo.GetComponent<CharacterScript>().text[index];
             if (Input.GetMouseButtonDown(0)){
                 if (index < characterURTalkingTo.GetComponent<CharacterScript>().text.Length){
                     index++;
@@ -40,6 +39,7 @@ public class TextManager : MonoBehaviour
                     index = 0;
                 }
             }
+            textToBeDisplayed = characterURTalkingTo.GetComponent<CharacterScript>().text[index];
         }
     }
 
