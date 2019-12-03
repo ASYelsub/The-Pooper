@@ -77,6 +77,7 @@ public class EmailManagerScript : MonoBehaviour
     public void CloseInbox()
     {
         inbox.SetActive(false);
+        sendButton.SetActive(false);
         emailContent.GetComponent<TextMeshProUGUI>().text = "";
     }
 
