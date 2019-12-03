@@ -59,6 +59,8 @@ public class EmailManagerScript : MonoBehaviour
         ZaraButton.SetActive(false);
         sendButton.SetActive(false);
 
+        checkingEmail = false;
+
         // unfreeze player action and camera
         player.GetComponent<PlayerScript>().enabled = true;
         player.GetComponent<CharacterController>().enabled = true;

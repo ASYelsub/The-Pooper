@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CursorCtrlScript : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class CursorCtrlScript : MonoBehaviour
     public Vector3 cursorPos;
     public Vector3 startMousePos;
     public Vector3 startPos;
+
+    // for changing cursor
+    public GameObject emailC;
+    public GameObject talkC;
+    public GameObject eyeC;
+    public int cursorState;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +39,36 @@ public class CursorCtrlScript : MonoBehaviour
         else
         {
             transform.localPosition = center;
+        }
+
+        // changing cursor image
+        if (cursorState == 0) // default cursor
+        {
+            GetComponent<Image>().enabled = true;
+            emailC.SetActive(false);
+            talkC.SetActive(false);
+            eyeC.SetActive(false);
+        }
+        else if (cursorState == 1) // email cursor
+        {
+            GetComponent<Image>().enabled = false;
+            emailC.SetActive(true);
+            talkC.SetActive(false);
+            eyeC.SetActive(false);
+        }
+        else if (cursorState == 2) // talk cursor
+        {
+            GetComponent<Image>().enabled = false;
+            emailC.SetActive(false);
+            talkC.SetActive(true);
+            eyeC.SetActive(false);
+        }
+        else if (cursorState == 3) // eye cursor
+        {
+            GetComponent<Image>().enabled = false;
+            emailC.SetActive(false);
+            talkC.SetActive(false);
+            eyeC.SetActive(true);
         }
     }
 }
