@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/IntroScene.unity
+    guid: e27ae85841547b4489e40e24753f154c
+  - enabled: 1
+    path: Assets/Scenes/Blake North.unity
+    guid: e996f9757dd028645b9cecb60371646d
   m_configObjects: {}
