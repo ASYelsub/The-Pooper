@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Interactable
+  - Character
+  - door
+  - Cursor
+  - laptop
   layers:
   - Default
   - TransparentFX
@@ -13,7 +18,11 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - COLORS
+=======
+  - Cursor
+>>>>>>> master
   - 
   - 
   - 
