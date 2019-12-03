@@ -31,7 +31,12 @@ public class ObjectExamination : MonoBehaviour
         RaycastHit rayHit = new RaycastHit();
         Debug.DrawRay(mouseRay.origin,mouseRay.direction*distToInteractWithObj, Color.magenta);
         if (Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj)){
-            if(rayHit.transform.tag == "Interactable" && Input.GetMouseButtonDown(0) && !rayHit.transform.GetComponent<InteractableScript>().beingExamined){ // when clicking on an interactable
+            // when clicking on an interactable
+            if (rayHit.transform.tag == "Interactable" &&  // if mouse on an interactable
+                Input.GetMouseButtonDown(0) && // if clicked
+                !rayHit.transform.GetComponent<InteractableScript>().beingExamined && // if the object clicked is not being exmained
+                !EmailManagerScript.me.checkingEmail) // if not checking email
+            {
                 objBeingExamined = rayHit.transform.gameObject;
                 objOriginalPos = rayHit.transform.position;
                 objOriginalRot = rayHit.transform.rotation;
@@ -39,15 +44,40 @@ public class ObjectExamination : MonoBehaviour
 
                 TextManager.me.ChangeText(rayHit.transform.GetComponent<InteractableScript>().objText);
 
+                // freeze player action and camera
                 player.GetComponent<PlayerScript>().enabled = false;
                 player.GetComponent<CharacterController>().enabled = false;
                 this.gameObject.GetComponent<CameraScript>().enabled = false;
 
                 CursorCtrlScript.me.startMousePos = Input.mousePosition; // record start mouse position
                 CursorCtrlScript.me.startPos = CursorCtrlScript.me.transform.position; // record start cursor position
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.None; // stop locking the cursor
+                Cursor.visible = false; // hide the cursor
                 CursorCtrlScript.me.canMove = true;
+            }
+
+            // if object is laptop
+            if (rayHit.transform.tag == "laptop" && // if mouse on laptop
+                Input.GetMouseButtonDown(0) && // if clicked
+                !rayHit.transform.GetComponent<EmailManagerScript>().checkingEmail) // if not already checking email
+            {
+                // freeze player action and camera
+                player.GetComponent<PlayerScript>().enabled = false;
+                player.GetComponent<CharacterController>().enabled = false;
+                this.gameObject.GetComponent<CameraScript>().enabled = false;
+
+                // set up cursor
+                CursorCtrlScript.me.startMousePos = Input.mousePosition; // record start mouse position
+                CursorCtrlScript.me.startPos = CursorCtrlScript.me.transform.position; // record start cursor position
+                Cursor.lockState = CursorLockMode.None; // stop locking the cursor
+                Cursor.visible = false; // hide the cursor
+                CursorCtrlScript.me.canMove = true;
+                // display interface
+                EmailManagerScript.me.emailInterface.SetActive(true);
+                EmailManagerScript.me.ZaraButton.SetActive(true);
+                EmailManagerScript.me.closeButton.SetActive(true);
+
+                // exit interface when click on "exit"
             }
         }
 
