@@ -22,7 +22,12 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 8fdf7838b9a4e1a4f802eca4b466e086,
         type: 3}
       propertyPath: m_Name
-      value: shit
+      value: shit Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8fdf7838b9a4e1a4f802eca4b466e086,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8fdf7838b9a4e1a4f802eca4b466e086,
         type: 3}
