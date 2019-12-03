@@ -32,6 +32,7 @@ public class ObjectExamination : MonoBehaviour
         Debug.DrawRay(mouseRay.origin,mouseRay.direction*distToInteractWithObj, Color.magenta);
         if (Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj)){
             print(rayHit.transform.tag);
+
             // when mouse on an interactable
             if (rayHit.transform.tag == "Interactable" && 
                 !rayHit.transform.GetComponent<InteractableScript>().beingExamined && // if the object clicked is not being exmained
@@ -49,11 +50,29 @@ public class ObjectExamination : MonoBehaviour
                 CursorCtrlScript.me.cursorState = 0;
             }
 
-                // when clicking on an interactable
-                if (rayHit.transform.tag == "Interactable" &&  // if mouse on an interactable
-                Input.GetMouseButtonDown(0) && // if clicked
-                !rayHit.transform.GetComponent<InteractableScript>().beingExamined && // if the object clicked is not being exmained
-                !EmailManagerScript.me.checkingEmail) // if not checking email
+            if (Input.GetMouseButtonDown(0) && 
+                objBeingExamined != null &&
+                rayHit.transform.tag == "Untagged"
+                )
+            {
+                objBeingExamined.GetComponent<InteractableScript>().beingExamined = false;
+                objBeingExamined.GetComponent<InteractableScript>().destination = objOriginalPos;
+                objBeingExamined.GetComponent<InteractableScript>().rDestination = objOriginalRot;
+                TextManager.me.ChangeText(TextManager.me.defaultText);
+
+                player.GetComponent<PlayerScript>().enabled = true;
+                player.GetComponent<CharacterController>().enabled = true;
+                this.gameObject.GetComponent<CameraScript>().enabled = true;
+
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                CursorCtrlScript.me.canMove = false;
+            }
+            // when clicking on an interactable
+            if (rayHit.transform.tag == "Interactable" &&  // if mouse on an interactable
+            Input.GetMouseButtonDown(0) && // if clicked
+            !rayHit.transform.GetComponent<InteractableScript>().beingExamined && // if the object clicked is not being exmained
+            !EmailManagerScript.me.checkingEmail) // if not checking email
             {
                 objBeingExamined = rayHit.transform.gameObject;
                 objOriginalPos = rayHit.transform.position;
@@ -72,7 +91,6 @@ public class ObjectExamination : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None; // stop locking the cursor
                 Cursor.visible = false; // hide the cursor
                 CursorCtrlScript.me.canMove = true;
-                
             }
 
             // if object is laptop
@@ -95,10 +113,8 @@ public class ObjectExamination : MonoBehaviour
                 CursorCtrlScript.me.canMove = true;
                 // display interface
                 EmailManagerScript.me.emailInterface.SetActive(true);
-                EmailManagerScript.me.ZaraButton.SetActive(true);
-                EmailManagerScript.me.closeButton.SetActive(true);
-
-                // exit interface when click on "exit"
+                //EmailManagerScript.me.ZaraButton.SetActive(true);
+                //EmailManagerScript.me.closeButton.SetActive(true);
             }
         }
 
