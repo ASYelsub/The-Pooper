@@ -27,8 +27,11 @@ public class NPCMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //RandomMovement();
+    }
 
-
+    void RandomMovement()
+    {
         if (Mathf.Round(transform.position.x) == Mathf.Round(TargetPos.x) && Mathf.Round(transform.position.z) == Mathf.Round(TargetPos.z))
         {
             RandomSec = 2;
@@ -55,7 +58,7 @@ public class NPCMover : MonoBehaviour
         {
             cc.Move(transform.forward * NPCspeed * Time.deltaTime);
         }
-        transform.rotation = Quaternion.Euler(0,transform.rotation.y, 0);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
     }
 
     IEnumerator WaitAtPoint()
