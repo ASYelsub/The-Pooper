@@ -13,7 +13,9 @@ public class TitleScreen : MonoBehaviour
     public GameObject directions;
     public Outline playOutline;
     public Outline creditsOutline;
+    public Outline play1Outline;
     public AudioSource blip;
+    public AudioSource click;
 
     public void Start()
     {
@@ -45,6 +47,12 @@ public class TitleScreen : MonoBehaviour
         {
             playOutline.GetComponent<Outline>().enabled = false;
             creditsOutline.GetComponent<Outline>().enabled = false;
+            play1Outline.GetComponent<Outline>().enabled = false;
+        }
+        if(outlineInt == 3)
+        {
+            play1Outline.GetComponent<Outline>().enabled = true;
+            blip.Play();
         }
 
     }
@@ -58,7 +66,7 @@ public class TitleScreen : MonoBehaviour
             play1Button.SetActive(true);
             thePooper.SetActive(false);
             directions.SetActive(true);
-            blip.Play();
+            click.Play();
         }
         if (buttonInt == 1)
         {
@@ -67,6 +75,8 @@ public class TitleScreen : MonoBehaviour
     }
     public void LoadScene()
     {
+        click.Play();
         SceneManager.LoadScene(2);
+      
     }
 }

@@ -31,7 +31,7 @@ public class ObjectExamination : MonoBehaviour
         RaycastHit rayHit = new RaycastHit();
         Debug.DrawRay(mouseRay.origin,mouseRay.direction*distToInteractWithObj, Color.magenta);
         if (Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj)){
-            print(rayHit.transform.tag);
+            //print(rayHit.transform.tag);
 
             // when mouse on an interactable
             if (rayHit.transform.tag == "Interactable" && 
@@ -111,10 +111,9 @@ public class ObjectExamination : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None; // stop locking the cursor
                 Cursor.visible = false; // hide the cursor
                 CursorCtrlScript.me.canMove = true;
+
                 // display interface
                 EmailManagerScript.me.emailInterface.SetActive(true);
-                //EmailManagerScript.me.ZaraButton.SetActive(true);
-                //EmailManagerScript.me.closeButton.SetActive(true);
             }
         }
 
@@ -125,13 +124,8 @@ public class ObjectExamination : MonoBehaviour
             objBeingExamined.GetComponent<InteractableScript>().rDestination = objOriginalRot;
             TextManager.me.ChangeText(TextManager.me.defaultText);
 
-            player.GetComponent<PlayerScript>().enabled = true;
-            player.GetComponent<CharacterController>().enabled = true;
-            this.gameObject.GetComponent<CameraScript>().enabled = true;
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            CursorCtrlScript.me.canMove = false;
+            // unfreeze cam
+            FreeMode();
         }
 
         // ray cast for talking
@@ -139,16 +133,25 @@ public class ObjectExamination : MonoBehaviour
         RaycastHit characterHit = new RaycastHit();
         Debug.DrawRay(talkRay.origin, talkRay.direction*distToTalk, Color.cyan);
         if (Physics.Raycast(talkRay,out characterHit, distToTalk)){ // if player in front of the character
-            if (!talking && characterHit.transform.tag == "Character"){
-                //TextManager.me.ChangeText(TextManager.me.conversationText); // show prompt if not talking
+            if (!talking && (characterHit.transform.tag == "Character"|| characterHit.transform.tag == "Quaft's door"))
+            {
                 CursorCtrlScript.me.cursorState = 2;
             }
-            if (//Input.GetKeyDown(KeyCode.E) &&
-                Input.GetMouseButtonDown(0) && // if clicked
-                characterHit.transform.tag == "Character"){
+            if (Input.GetMouseButtonDown(0) && // if click on a character
+                characterHit.transform.tag == "Character")
+            {
                 talking = true;
                 TextManager.me.conversation = true;
                 TextManager.me.characterURTalkingTo = characterHit.transform.gameObject;
+            }
+            if (Input.GetMouseButtonDown(0) && // if click on Quaft's door
+                characterHit.transform.tag == "Quaft's door")
+            {
+                TextManager.me.ChangeText("Are you ready?");
+                QuaftsDoorScript.me.quaftState = 1;
+
+                FocusMode();
+                
             }
         }
         else if (!Physics.Raycast(talkRay,out characterHit, distToTalk) && 
@@ -158,5 +161,30 @@ public class ObjectExamination : MonoBehaviour
             TextManager.me.ChangeText(TextManager.me.defaultText);
             CursorCtrlScript.me.cursorState = 0;
         }
+    }
+
+    public void FocusMode()
+    {
+        // freeze player action and camera and set up cursor movement
+        player.GetComponent<PlayerScript>().enabled = false;
+        player.GetComponent<CharacterController>().enabled = false;
+        this.gameObject.GetComponent<CameraScript>().enabled = false;
+
+        CursorCtrlScript.me.startMousePos = Input.mousePosition; // record start mouse position
+        CursorCtrlScript.me.startPos = CursorCtrlScript.me.transform.position; // record start cursor position
+        Cursor.lockState = CursorLockMode.None; // stop locking the cursor
+        Cursor.visible = false; // hide the cursor
+        CursorCtrlScript.me.canMove = true;
+    }
+
+    public void FreeMode()
+    {
+        player.GetComponent<PlayerScript>().enabled = true;
+        player.GetComponent<CharacterController>().enabled = true;
+        this.gameObject.GetComponent<CameraScript>().enabled = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        CursorCtrlScript.me.canMove = false;
     }
 }
