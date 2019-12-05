@@ -340,12 +340,12 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0.8021469, a: 1}
   charSprites:
   - {fileID: 21300000, guid: 4db0ea5f96d13a545b33b991340b53d9, type: 3}
-  - {fileID: 21300000, guid: 705856d12175cc24899e2adcfd6a5f68, type: 3}
-  - {fileID: 21300000, guid: 67bcbb80f79f15c4b936aa8e454fd1e1, type: 3}
-  - {fileID: 21300000, guid: 31afb2b8d3ec33d449176f615a088b8c, type: 3}
-  - {fileID: 21300000, guid: 7ec02c665d515214da33f78ee311fa3c, type: 3}
-  - {fileID: 21300000, guid: ab602503a2fedfd4fb556af923d6d58d, type: 3}
-  - {fileID: 21300000, guid: bbe9320beac029049b98f849e40bebf0, type: 3}
+  - {fileID: 21300000, guid: 510e2e5c443c0db42b5c3fdc63486325, type: 3}
+  - {fileID: 21300000, guid: b548f4e6dd8f00143a34200a71956cc7, type: 3}
+  - {fileID: 21300000, guid: bb172cc47ed32f94ab79a3750e9bd219, type: 3}
+  - {fileID: 21300000, guid: c344ecab449a33b4292eb9ad867136db, type: 3}
+  - {fileID: 21300000, guid: 3ef413d927d01794bb47dbf6734a649b, type: 3}
+  - {fileID: 21300000, guid: 89680267a44f29b468ece5820caaf515, type: 3}
   Name: ISHA
 --- !u!1 &2913318479657219044
 GameObject:
