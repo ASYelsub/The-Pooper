@@ -10,9 +10,14 @@ public class TextManager : MonoBehaviour
     public string defaultText;
     public string convoPromptText;
     public bool conversation;
+    public bool intro = true;
     public GameObject characterURTalkingTo;
-    public TextMeshProUGUI UGUI;
-    private int index=0;
+    public GameObject player; // drag in player
+    public GameObject cam; // drag in camera
+    public TextMeshProUGUI UGUI; // drag in Text (TMP) under Canvas
+    private int index = 0;
+    private int introIndex = 0;
+    
 
     public int convoState;
 
@@ -20,6 +25,9 @@ public class TextManager : MonoBehaviour
     public string QuaftText1;
     [TextArea]
     public string QuaftText2;
+
+    [TextArea]
+    public string[] introText;
     
 
     // Start is called before the first frame update
@@ -27,6 +35,9 @@ public class TextManager : MonoBehaviour
     {
         me = this;
         textToBeDisplayed = defaultText;
+        convoState = 3;
+        introIndex = 0;
+        index = 0;
     }
 
     // Update is called once per frame
@@ -76,7 +87,7 @@ public class TextManager : MonoBehaviour
                     ObjectExamination.me.talking = false;
                     index = 0;
                     convoState = 2;
-                    print("end convo");
+                    //print("end convo");
                     ChangeText(defaultText);
                 }
             }
@@ -93,6 +104,35 @@ public class TextManager : MonoBehaviour
         {
             ObjectExamination.me.talking = false;
             ChangeText(defaultText);
+        }
+
+        if (convoState == 3) // intro state
+        {
+            // freeze player movement
+            player.GetComponent<PlayerScript>().enabled = false;
+            player.GetComponent<CharacterController>().enabled = false;
+            cam.GetComponent<CameraScript>().canBob = false;
+
+            //print(introText.Length);
+            ChangeText(introText[introIndex]);
+            if (Input.GetMouseButtonDown(0) &&
+                introIndex < introText.Length -1)
+            {
+                introIndex++;
+            }
+            else if (Input.GetMouseButtonDown(0) &&
+                    introIndex == introText.Length - 1) // when it reaches the end of the intro conversation
+            {
+                print("you are free");
+                // unfreeze player movement and camera, player can now interact with obejcts and characters
+                player.GetComponent<PlayerScript>().enabled = true;
+                player.GetComponent<CharacterController>().enabled = true;
+                cam.GetComponent<CameraScript>().canBob = true;
+                cam.GetComponent<ObjectExamination>().enabled = true;
+                ChangeText(defaultText);
+                convoState = 0;
+                
+            }
         }
 
         //if(conversation){
