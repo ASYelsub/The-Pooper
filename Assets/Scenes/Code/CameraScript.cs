@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
+    public bool canBob = false;
 
     Transform cam;
 
@@ -44,7 +45,10 @@ public class CameraScript : MonoBehaviour
         cam.rotation = Quaternion.Euler(xrot, yrot, 0);
 
         Shooting();
-        CameraBob();
+        if (canBob)
+        {
+            CameraBob();
+        }
     }
 
     void Shooting()

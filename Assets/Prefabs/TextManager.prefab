@@ -45,7 +45,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textToBeDisplayed: 
   defaultText: This is a placeholder text
-  conversationText: press E to talk
+  convoPromptText: 
   conversation: 0
+  intro: 1
   characterURTalkingTo: {fileID: 0}
+  OES: {fileID: 0}
+  player: {fileID: 0}
   UGUI: {fileID: 0}
+  convoState: 0
+  QuaftText1: 'Quaft:
+
+    Are you ready to tell me who did it?'
+  QuaftText2: 'Quaft:
+
+    Okay, tell me who is the Pooper.'
+  introText:
+  - 'Quaft:
+
+    did you poop'
+  - 'Roberta:
+
+    nope'
+  - 'Quaft:
+
+    find who did'
+  - 'Roberta:
+
+    kay'
