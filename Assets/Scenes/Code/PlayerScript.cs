@@ -74,79 +74,20 @@ public class PlayerScript : MonoBehaviour
         CalcCam();
 
         CrosshairPosition();
-
-        //Crouch();
-
-        //SpeedAcceleration();
         PlayerMove();
         characterController.Move(moveDirection * Time.deltaTime);
 
-        //HandBob();
-        //Debug.Log("X: " + Mathf.RoundToInt(transform.position.x) + " Z: " + Mathf.RoundToInt(transform.position.z));
-    }
-
-    void HandBob()
-    {
-        if (Mathf.RoundToInt(moveDirection.magnitude) > 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (hand.rectTransform.localPosition.y > 0)
-            {
-                upbob = false;
-            }
-            else if (hand.rectTransform.localPosition.y < -40)
-            {
-                upbob = true;
-            }
-
-            if (upbob == true)
-            {
-                hand.rectTransform.localPosition += new Vector3(0, 1, 0) * Time.deltaTime * 200;
-            }
-            else
-            {
-                hand.rectTransform.localPosition += new Vector3(0, -1, 0) * Time.deltaTime * 200;
-            }
+            Debug.Log("Debug: Space Pressed");
+            GameStageManager.robertaLeft = true;
         }
-        else
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            hand.rectTransform.localPosition = Vector3.Lerp(hand.rectTransform.localPosition, new Vector3(160, 0, 0), Time.deltaTime * 6);
-        }
-    }
-
-    void Crouch()
-    {
-
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            playerHeight = Mathf.Lerp(playerHeight, 1.5f, Time.deltaTime * 10);
-            characterController.center = Vector3.Lerp(characterController.center, new Vector3(0, -.3f, 0), Time.deltaTime * 10);
-            playerbody.localPosition = Vector3.Lerp(playerbody.localPosition, new Vector3(0, -.3f, 0), Time.deltaTime * 10);
-        }
-        else
-        {
-            if (!ceilingAbove)
-            {
-                playerHeight = Mathf.Lerp(playerHeight, 2f, Time.deltaTime * 10);
-                characterController.center = Vector3.Lerp(characterController.center, new Vector3(0, 0, 0), Time.deltaTime * 10);
-                playerbody.localPosition = Vector3.Lerp(playerbody.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 10);
-            }
+            GameStageManager.GameStage = 1;
         }
 
 
-        RaycastHit tophit;
-        if (Physics.Raycast(playerbody.position, Vector3.up, out tophit, playerbody.localScale.y * 2))
-        {
-            //ceilingAbove = true;
-        }
-        else
-        {
-            ceilingAbove = false;
-        }
-
-        //Debug.Log(ceilingAbove);
-
-        characterController.height = playerHeight;
-        playerbody.localScale = new Vector3(1, playerHeight / 2, 1);
     }
 
     void CrosshairPosition()
