@@ -9,10 +9,23 @@ public class RobertaScript : MonoBehaviour
     public Outline startOutline;
     public Image background;
     public GameObject roberta;
-    public void ChangeScene()
+    public AudioSource fireAlarm;
+    int k = 0;
+    public void ChangeScene(int i)
     {
-        background.GetComponent<Image>().color = new Color(0,0,0);
-        roberta.SetActive(false);
+        if (i == 1 && k == 0)
+        {
+            background.GetComponent<Image>().color = new Color(0, 0, 0);
+            roberta.SetActive(false);
+            k++;
+            fireAlarm.Play();
+        }
+        else if (k == 1)
+        {
+            SceneManager.LoadScene("James_Scene");
+            fireAlarm.Stop();
+        }
+        
     }
     public void OutLine(int outLineNumber)
     {
