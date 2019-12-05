@@ -31,7 +31,7 @@ public class NPCMover : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
 
-        cc.detectCollisions = false;
+        //cc.detectCollisions = false;
     }
 
     // Update is called once per frame
