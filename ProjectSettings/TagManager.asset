@@ -7,6 +7,7 @@ TagManager:
   - laptop
   - Interactable
   - Character
+  - Door
   layers:
   - Default
   - TransparentFX
