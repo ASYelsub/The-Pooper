@@ -39,7 +39,7 @@ public class EmailManagerScript : MonoBehaviour
     {
         receiver = zara;
 
-        print(receiver);
+        //print(receiver);
         sendButton.SetActive(true);
         emailContent.GetComponent<TextMeshProUGUI>().text = receiver.emailContent;
 
@@ -47,7 +47,7 @@ public class EmailManagerScript : MonoBehaviour
 
     public void SendEmail()
     {
-        print("email sent");
+        //print("email sent");
         inbox.SetActive(true);
         
     }
