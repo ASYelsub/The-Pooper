@@ -38,19 +38,19 @@ public class TextManager : MonoBehaviour
         }
         else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "ISHA")
         {
-            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[1];
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[3];
         }
         else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "HELEN")
         {
-            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[1];
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[5];
         }
         else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "CANDY")
         {
-            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[1];
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[6];
         }
         else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "CARLA")
         {
-            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[1];
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[4];
         }
         else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "QUAFT")
         {
