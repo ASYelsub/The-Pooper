@@ -12,7 +12,7 @@ public class TextManager : MonoBehaviour
     public bool conversation;
     public GameObject characterURTalkingTo;
     public TextMeshProUGUI UGUI;
-    private int index=-1;
+    private int index=0;
     
 
     // Start is called before the first frame update
