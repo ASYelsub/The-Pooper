@@ -12,7 +12,9 @@ public class TextManager : MonoBehaviour
     public bool conversation;
     public GameObject characterURTalkingTo;
     public TextMeshProUGUI UGUI;
-    private int index=-1;
+    private int index=0;
+
+    public int convoState;
 
     [TextArea]
     public string QuaftText1;
@@ -32,20 +34,52 @@ public class TextManager : MonoBehaviour
     {
         UGUI.text = textToBeDisplayed;
 
-        if(conversation){
-            
-            if (Input.GetMouseButtonDown(0)){
-                if (index < characterURTalkingTo.GetComponent<CharacterScript>().text.Length){
+        if (convoState == 1) // having a conversation
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (index < characterURTalkingTo.GetComponent<CharacterScript>().text.Length)
+                {
                     index++;
                 }
-                if (index == characterURTalkingTo.GetComponent<CharacterScript>().text.Length){
-                    conversation = false;
+                if (index == characterURTalkingTo.GetComponent<CharacterScript>().text.Length)
+                {
                     ObjectExamination.me.talking = false;
                     index = 0;
+                    convoState = 2;
+                    print("end convo");
+                    ChangeText(defaultText);
                 }
             }
             textToBeDisplayed = characterURTalkingTo.GetComponent<CharacterScript>().text[index];
         }
+
+        if (convoState == 0) // default state
+        {
+            ObjectExamination.me.talking = false;
+            ChangeText(defaultText);
+        }
+
+        if (convoState == 2) // default state
+        {
+            ObjectExamination.me.talking = false;
+            ChangeText(defaultText);
+        }
+
+        //if(conversation){
+
+        //    if (Input.GetMouseButtonDown(0)){
+        //        if (index < characterURTalkingTo.GetComponent<CharacterScript>().text.Length){
+        //            index++;
+        //        }
+        //        if (index == characterURTalkingTo.GetComponent<CharacterScript>().text.Length){
+        //            conversation = false;
+        //            ObjectExamination.me.talking = false;
+        //            index = 0;
+        //        }
+        //    }
+        //    textToBeDisplayed = characterURTalkingTo.GetComponent<CharacterScript>().text[index];
+        //}
     }
 
     public void ChangeText(string text){

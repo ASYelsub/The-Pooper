@@ -48,7 +48,7 @@ public class QuaftsDoorScript : MonoBehaviour
 
     public void endConvoWithQuaft()
     {
-        print("end convo");
+        //print("end convo");
         quaftState = 0; // default phase
         ObjectExamination.me.FreeMode();
     }
@@ -56,7 +56,7 @@ public class QuaftsDoorScript : MonoBehaviour
     public void Ready()
     {
         TextManager.me.ChangeText(TextManager.me.QuaftText2);
-        print("i'm ready");
+        //print("i'm ready");
         quaftState = 2;
     }
 }
