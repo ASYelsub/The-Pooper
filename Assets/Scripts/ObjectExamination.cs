@@ -26,6 +26,7 @@ public class ObjectExamination : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         // ray cast for obj examination
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit rayHit = new RaycastHit();
@@ -132,16 +133,19 @@ public class ObjectExamination : MonoBehaviour
         Ray talkRay = new Ray(transform.position,transform.forward);
         RaycastHit characterHit = new RaycastHit();
         Debug.DrawRay(talkRay.origin, talkRay.direction*distToTalk, Color.cyan);
+        
         if (Physics.Raycast(talkRay,out characterHit, distToTalk)){ // if player in front of the character
-            if (!talking && (characterHit.transform.tag == "Character"|| characterHit.transform.tag == "Quaft's door"))
+            if (!talking && (characterHit.transform.tag == "Character" || characterHit.transform.tag == "Quaft's door"))
             {
                 CursorCtrlScript.me.cursorState = 2;
             }
             if (Input.GetMouseButtonDown(0) && // if click on a character
-                characterHit.transform.tag == "Character")
+                characterHit.transform.tag == "Character" &&
+                TextManager.me.convoState == 0)
             {
                 talking = true;
-                TextManager.me.conversation = true;
+                TextManager.me.convoState = 1;
+                //TextManager.me.conversation = true;
                 TextManager.me.characterURTalkingTo = characterHit.transform.gameObject;
             }
             if (Input.GetMouseButtonDown(0) && // if click on Quaft's door
@@ -153,15 +157,21 @@ public class ObjectExamination : MonoBehaviour
                 FocusMode();
             }
         }
-        else if ((!Physics.Raycast(talkRay,out characterHit, distToTalk) || // if the raycast for talking hit nothing
-                characterHit.transform.tag == "Untagged") &&  // or if the raycast for talking hit noone
+        
+        if ((!Physics.Raycast(talkRay,out characterHit, distToTalk) || // if the raycast for talking hit nothing
+                characterHit.transform.tag == "Untagged") ||  // or if the raycast for talking hit noone
                 (!Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj) || // if the raycast for examination hit nothing
                 rayHit.transform.tag == "Untagged") && // or if the raycast for examination hit objects that can't be interacted with
                 objBeingExamined == null)
         {
+            //print("default");
+            TextManager.me.convoState = 0;
             TextManager.me.ChangeText(TextManager.me.defaultText);
             CursorCtrlScript.me.cursorState = 0;
+
         }
+        //print("characterhit: " + characterHit.transform.tag);
+        //print("rayhit: " + rayHit.transform.tag);
     }
 
     public void FocusMode()

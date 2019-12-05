@@ -26,37 +26,37 @@ public class NPCSpriteScript : MonoBehaviour
         if (Name == "QUAFT")
         {
             Debug.Log("QUAFT!");
-            SR.color = charColors[0];
+            //SR.color = charColors[0];
             SR.sprite = charSprites[0];
         }
         else if (Name == "ZARA")
         {
-            SR.color = charColors[1];
+            //SR.color = charColors[1];
             SR.sprite = charSprites[1];
         }
         else if (Name == "ELIKENE")
         {
-            SR.color = charColors[2];
+            //SR.color = charColors[2];
             SR.sprite = charSprites[2];
         }
         else if (Name == "ISHA")
         {
-            SR.color = charColors[3];
+            //SR.color = charColors[3];
             SR.sprite = charSprites[3];
         }
         else if (Name == "CARLA")
         {
-            SR.color = charColors[4];
+            //SR.color = charColors[4];
             SR.sprite = charSprites[4];
         }
         else if (Name == "HELEN")
         {
-            SR.color = charColors[5];
+            //SR.color = charColors[5];
             SR.sprite = charSprites[5];
         }
         else if (Name == "CANDY")
         {
-            SR.color = charColors[6];
+            //SR.color = charColors[6];
             SR.sprite = charSprites[6];
         }
 
