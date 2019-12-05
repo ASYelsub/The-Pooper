@@ -164,14 +164,14 @@ public class ObjectExamination : MonoBehaviour
                 rayHit.transform.tag == "Untagged") && // or if the raycast for examination hit objects that can't be interacted with
                 objBeingExamined == null)
         {
-            print("default");
+            //print("default");
             TextManager.me.convoState = 0;
             TextManager.me.ChangeText(TextManager.me.defaultText);
             CursorCtrlScript.me.cursorState = 0;
 
         }
-        print("characterhit: " + characterHit.transform.tag);
-        print("rayhit: " + rayHit.transform.tag);
+        //print("characterhit: " + characterHit.transform.tag);
+        //print("rayhit: " + rayHit.transform.tag);
     }
 
     public void FocusMode()
