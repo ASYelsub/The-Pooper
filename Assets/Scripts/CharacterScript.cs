@@ -13,12 +13,35 @@ public class CharacterScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text = new string[2];
         info = GetComponentInChildren<NPCSpriteScript>();
         name = info.Name;
 
-        text[1] = name + ": my name is " + name;
-        text[0] = "Roberta: Who are you?";
+        if (info.name == "ISHA")
+        {
+            text = new string[2];
+        }
+        else if (info.name == "")
+        {
+            text = new string[2];
+        }
+        else if (info.name == "ISHA")
+        {
+            text = new string[2];
+        }
+        else if (info.name == "ISHA")
+        {
+            text = new string[2];
+        }
+        else if (info.name == "ISHA")
+        {
+            text = new string[2];
+        }
+        else if (info.name == "ISHA")
+        {
+            text = new string[2];
+        }
+
+
     }
 
     // Update is called once per frame
