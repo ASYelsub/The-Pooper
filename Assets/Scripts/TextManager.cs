@@ -32,6 +32,35 @@ public class TextManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "ZARA")
+        {
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[1];
+        }
+        else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "ISHA")
+        {
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[3];
+        }
+        else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "HELEN")
+        {
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[5];
+        }
+        else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "CANDY")
+        {
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[6];
+        }
+        else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "CARLA")
+        {
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[4];
+        }
+        else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "QUAFT")
+        {
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[1];
+        }
+        else if (characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().name == "ELIKENE")
+        {
+            UGUI.color = characterURTalkingTo.GetComponentInChildren<NPCSpriteScript>().charColors[1];
+        }
+
         UGUI.text = textToBeDisplayed;
 
         if (convoState == 1) // having a conversation
