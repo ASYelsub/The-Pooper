@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuaftsDoorScript : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class QuaftsDoorScript : MonoBehaviour
     public GameObject yesButton;
     public GameObject noButton;
     public int quaftState;
+    public string IdentifyScenesName;
 
     // Start is called before the first frame update
     void Start()
@@ -19,13 +21,25 @@ public class QuaftsDoorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (quaftState == 2) // identify state
+        {
+            yesButton.SetActive(false);
+            noButton.SetActive(false);
+            TextManager.me.ChangeText(TextManager.me.QuaftText2);
+            if (Input.GetMouseButtonDown(0)) // if left clicked
+            {
+                SceneManager.LoadScene(IdentifyScenesName); // go to another scene
+            }
+        }
+
         if (quaftState == 1) // question state
         {
             yesButton.SetActive(true);
             noButton.SetActive(true);
+            TextManager.me.ChangeText(TextManager.me.QuaftText1);
         }
 
-        if (quaftState == 0)
+        if (quaftState == 0) // default state
         {
             yesButton.SetActive(false);
             noButton.SetActive(false);
@@ -41,6 +55,8 @@ public class QuaftsDoorScript : MonoBehaviour
 
     public void Ready()
     {
+        TextManager.me.ChangeText(TextManager.me.QuaftText2);
         print("i'm ready");
+        quaftState = 2;
     }
 }

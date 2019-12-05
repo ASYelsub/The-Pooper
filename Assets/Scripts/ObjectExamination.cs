@@ -145,17 +145,18 @@ public class ObjectExamination : MonoBehaviour
                 TextManager.me.characterURTalkingTo = characterHit.transform.gameObject;
             }
             if (Input.GetMouseButtonDown(0) && // if click on Quaft's door
-                characterHit.transform.tag == "Quaft's door")
+                characterHit.transform.tag == "Quaft's door" &&
+                QuaftsDoorScript.me.quaftState == 0)
             {
-                TextManager.me.ChangeText("Are you ready?");
                 QuaftsDoorScript.me.quaftState = 1;
 
                 FocusMode();
-                
             }
         }
-        else if (!Physics.Raycast(talkRay,out characterHit, distToTalk) && 
-                !Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj) &&
+        else if ((!Physics.Raycast(talkRay,out characterHit, distToTalk) || // if the raycast for talking hit nothing
+                characterHit.transform.tag == "Untagged") &&  // or if the raycast for talking hit noone
+                (!Physics.Raycast(mouseRay, out rayHit, distToInteractWithObj) || // if the raycast for examination hit nothing
+                rayHit.transform.tag == "Untagged") && // or if the raycast for examination hit objects that can't be interacted with
                 objBeingExamined == null)
         {
             TextManager.me.ChangeText(TextManager.me.defaultText);
@@ -179,12 +180,15 @@ public class ObjectExamination : MonoBehaviour
 
     public void FreeMode()
     {
+        // unfreeze player and camera
         player.GetComponent<PlayerScript>().enabled = true;
         player.GetComponent<CharacterController>().enabled = true;
         this.gameObject.GetComponent<CameraScript>().enabled = true;
 
+        // lock cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         CursorCtrlScript.me.canMove = false;
+        TextManager.me.ChangeText(TextManager.me.defaultText);
     }
 }

@@ -205,6 +205,20 @@ PrefabInstance:
       propertyPath: UGUI
       value: 
       objectReference: {fileID: 61020556}
+    - target: {fileID: 5807926364864439309, guid: b8c70b110907825479c574d6b068b14c,
+        type: 3}
+      propertyPath: QuaftText1
+      value: 'Quaft:
+
+        Are you ready to tell me who did it?'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807926364864439309, guid: b8c70b110907825479c574d6b068b14c,
+        type: 3}
+      propertyPath: QuaftText2
+      value: 'Quaft:
+
+        Okay, tell me who is the Pooper.'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8c70b110907825479c574d6b068b14c, type: 3}
 --- !u!20 &137133463 stripped
@@ -542,6 +556,7 @@ MonoBehaviour:
   yesButton: {fileID: 1830256068}
   noButton: {fileID: 1830256067}
   quaftState: 0
+  IdentifyScenesName: Identify Scene
 --- !u!1001 &1830256066
 PrefabInstance:
   m_ObjectHideFlags: 0
