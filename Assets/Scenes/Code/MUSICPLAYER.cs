@@ -19,6 +19,7 @@ public class MUSICPLAYER : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (!AS.isPlaying)
         {
             AS.PlayOneShot(SONG);
