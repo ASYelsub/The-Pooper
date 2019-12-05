@@ -23,8 +23,9 @@ public class NPCSpriteScript : MonoBehaviour
 
     void ColorAssigner()
     {
-        if (Name == "ROBERTA")
+        if (Name == "QUAFT")
         {
+            Debug.Log("QUAFT!");
             SR.color = charColors[0];
             SR.sprite = charSprites[0];
         }

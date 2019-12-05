@@ -5,72 +5,104 @@ using UnityEngine;
 public class NPCMover : MonoBehaviour
 {
     public Transform[] NPCpoints;
+    public Transform[] NPCpointsStageOne;
 
     CharacterController cc;
 
     float NPCspeed = 2;
 
-    Vector3 TargetPos;
+    int TargetPos = 0   ;
 
     bool reachedPoint = false;
     bool moving = true;
 
     int RandomSec;
 
+    public Vector3 startingPosition;
+    Vector3 stageOnePosition;
+
+    private void Awake()
+    {
+        //stageOnePosition = GetComponentInParent<Transform>().position;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
-        TargetPos = NPCpoints[Random.Range(0, 3)].position;
+
+        //cc.detectCollisions = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //RandomMovement();
+        GameStageDetector();
+        //Movement();
     }
 
-    void RandomMovement()
+    void GameStageDetector()
     {
-        if (Mathf.Round(transform.position.x) == Mathf.Round(TargetPos.x) && Mathf.Round(transform.position.z) == Mathf.Round(TargetPos.z))
+        if (GameStageManager.GameStage == 0)
         {
-            RandomSec = 2;
-            reachedPoint = true;
-            TargetPos = NPCpoints[Random.Range(0, 3)].position;
+            if (GameStageManager.robertaLeft)
+            {
+                cc.enabled = true;
+                Movement();
+            }
+            else
+            {
+                cc.enabled = false;
+                transform.position = startingPosition;
+            }
         }
-        else
+        else if (GameStageManager.GameStage == 1)
         {
-            reachedPoint = false;
+            //transform.position = GetComponentInParent<Transform>().position;
+            Movement2();
         }
+    }
 
-        if (reachedPoint)
-        {
-            moving = false;
-        }
-
-        if (!moving)
-        {
-            StartCoroutine("WaitAtPoint");
-        }
-
-        transform.LookAt(TargetPos);
-        if (moving)
-        {
-            cc.Move(transform.forward * NPCspeed * Time.deltaTime);
-        }
+    void Movement()
+    {
+        transform.LookAt(NPCpoints[TargetPos]);
+        cc.Move(transform.forward * NPCspeed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
-    }
 
-    IEnumerator WaitAtPoint()
+        if (Mathf.Round(transform.position.x) == Mathf.Round(NPCpoints[TargetPos].position.x)&&
+            Mathf.Round(transform.position.y) == Mathf.Round(NPCpoints[TargetPos].position.y)&&
+            Mathf.Round(transform.position.z) == Mathf.Round(NPCpoints[TargetPos].position.z)&&
+            TargetPos < 2)
+        {
+            TargetPos++;
+        }
+
+        //set it to increment target pos after the position is reached
+    }
+    void Movement2()
     {
-        yield return new WaitForSeconds(RandomSec);
-        moving = true;
+        transform.LookAt(NPCpointsStageOne[TargetPos]);
+        cc.Move(transform.forward * NPCspeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+
+        if (Mathf.Round(transform.position.x) == Mathf.Round(NPCpointsStageOne[TargetPos].position.x) &&
+            Mathf.Round(transform.position.y) == Mathf.Round(NPCpointsStageOne[TargetPos].position.y) &&
+            Mathf.Round(transform.position.z) == Mathf.Round(NPCpointsStageOne[TargetPos].position.z) &&
+            TargetPos > 0)
+        {
+            TargetPos--;
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         foreach (Transform trans in NPCpoints)
+        {
+            Gizmos.DrawWireSphere(trans.position, .15f);
+        }
+        Gizmos.color = Color.cyan;
+        foreach (Transform trans in NPCpointsStageOne)
         {
             Gizmos.DrawWireSphere(trans.position, .15f);
         }

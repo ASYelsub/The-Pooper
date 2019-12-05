@@ -5,10 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - laptop
-  - door
   - Interactable
   - Character
-  - Quaft's door
   layers:
   - Default
   - TransparentFX
@@ -18,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - COLOR
   - 
   - 
   - 
