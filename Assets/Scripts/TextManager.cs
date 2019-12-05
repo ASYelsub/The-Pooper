@@ -8,11 +8,16 @@ public class TextManager : MonoBehaviour
     public static TextManager me;
     public string textToBeDisplayed;
     public string defaultText;
-    public string conversationText;
+    public string convoPromptText;
     public bool conversation;
     public GameObject characterURTalkingTo;
     public TextMeshProUGUI UGUI;
-    private int index=0;
+    private int index=-1;
+
+    [TextArea]
+    public string QuaftText1;
+    [TextArea]
+    public string QuaftText2;
     
 
     // Start is called before the first frame update
