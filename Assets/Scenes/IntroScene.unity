@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 110485415}
   - component: {fileID: 110485416}
   m_Layer: 5
-  m_Name: Credits
+  m_Name: Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1534,7 +1534,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CREDITS
+  m_Text: OPTIONS
 --- !u!222 &1821464067
 CanvasRenderer:
   m_ObjectHideFlags: 0

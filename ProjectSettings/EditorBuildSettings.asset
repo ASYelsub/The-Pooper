@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Roberta Intro.unity
+    guid: fbf038017e726d84e802c2f5ee8721b8
+  - enabled: 1
     path: Assets/Scenes/IntroScene.unity
     guid: e27ae85841547b4489e40e24753f154c
   - enabled: 1
