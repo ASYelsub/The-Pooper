@@ -9,7 +9,7 @@ public class RobertaScript : MonoBehaviour
     public Outline startOutline;
     public Image background;
     public GameObject roberta;
-    public AudioSource fireAlarm;
+    public AudioClip fireAlarm;
     int k = 0;
     public void ChangeScene(int i)
     {
@@ -18,12 +18,11 @@ public class RobertaScript : MonoBehaviour
             background.GetComponent<Image>().color = new Color(0, 0, 0);
             roberta.SetActive(false);
             k++;
-            fireAlarm.Play();
+            MUSICPLAYER.AS.PlayOneShot(fireAlarm);
         }
         else if (k == 1)
         {
             SceneManager.LoadScene("James_Scene");
-            fireAlarm.Stop();
         }
         
     }

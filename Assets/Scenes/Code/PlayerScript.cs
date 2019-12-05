@@ -77,16 +77,19 @@ public class PlayerScript : MonoBehaviour
         PlayerMove();
         characterController.Move(moveDirection * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Debug: Space Pressed");
             GameStageManager.robertaLeft = true;
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.Return))
         {
             GameStageManager.GameStage = 1;
         }
-
+        if (GameStageManager.robertaLeft == false)
+        {
+            GameStageManager.robertaLeft = true;
+        }
 
     }
 
