@@ -147,6 +147,7 @@ public class ObjectExamination : MonoBehaviour
                 TextManager.me.convoState = 1;
                 //TextManager.me.conversation = true;
                 TextManager.me.characterURTalkingTo = characterHit.transform.gameObject;
+                Debug.Log(TextManager.me.characterURTalkingTo);
             }
             if (Input.GetMouseButtonDown(0) && // if click on Quaft's door
                 characterHit.transform.tag == "Quaft's door" &&
